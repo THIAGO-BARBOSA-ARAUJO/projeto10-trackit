@@ -1,9 +1,11 @@
 import styled from "styled-components"
 
-//component Login.js
+//component Login.js e cadastro.js
 
 export const Styledlogin = styled.div`
     
+    background-color: #E5E5E5;
+
     form {
         width: 100%;
         max-width: 375px;
@@ -37,6 +39,7 @@ export const Styledlogin = styled.div`
         line-height: 25px;
         color: #DBDBDB;
         padding-left: 11px;
+        outline: none;
     }
 
     input[type=submit] {
@@ -72,4 +75,4 @@ export const Styledlogin = styled.div`
 `
 
 
-//component Login.js
+//component Login.js cadastro.js

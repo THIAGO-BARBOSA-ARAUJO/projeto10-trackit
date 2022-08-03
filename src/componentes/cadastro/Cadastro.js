@@ -29,7 +29,7 @@ export default function Cadastro() {
             
 		});
 		console.log(requisicao)
-			//navigate("/")
+			navigate("/")
 		}catch {
 			console.log("deu ruim")
 		}
@@ -48,7 +48,7 @@ export default function Cadastro() {
                 <input required type="text" id="campofoto" placeholder="foto" value={foto} onChange={e => setFoto(e.target.value)} /><br/>
 
                 <input type="submit" value={"Cadastra"}/>
-                <p>Já tem uma conta? Faça login!</p>
+                <p onClick={()=>{navigate("/")}}>Já tem uma conta? Faça login!</p>
             </form>
             
         </Styledlogin>
