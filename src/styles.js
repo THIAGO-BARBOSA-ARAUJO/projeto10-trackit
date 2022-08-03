@@ -5,6 +5,7 @@ import styled from "styled-components"
 export const Styledlogin = styled.div`
     
     background-color: #E5E5E5;
+    pointer-events: ${(props)=>props.loading === "true" ? "none" : "all"};
 
     form {
         width: 100%;
@@ -42,7 +43,7 @@ export const Styledlogin = styled.div`
         outline: none;
     }
 
-    input[type=submit] {
+    button {
         width: 303px;
         height: 45px;
         background: #52B6FF;
@@ -50,6 +51,10 @@ export const Styledlogin = styled.div`
         cursor: pointer;
         border: none;
         margin-bottom: 36px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        opacity: ${(props)=>props.loading === "true" ? "0.5" : "1"};
 
         font-family: 'Lexend Deca';
         font-style: normal;

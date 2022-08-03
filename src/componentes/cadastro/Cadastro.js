@@ -36,7 +36,7 @@ export default function Cadastro() {
 	}
 
     return(
-        <Styledlogin>
+        <Styledlogin >
             <form onSubmit={fazerCadastro}>
                 <img src={imglogin} alt="imgagem de login"/>
                 <input required type="email" id="campoEmail" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} /><br/>
@@ -47,7 +47,7 @@ export default function Cadastro() {
                 
                 <input required type="text" id="campofoto" placeholder="foto" value={foto} onChange={e => setFoto(e.target.value)} /><br/>
 
-                <input type="submit" value={"Cadastra"}/>
+                <button>Cadastra</button>
                 <p onClick={()=>{navigate("/")}}>Já tem uma conta? Faça login!</p>
             </form>
             
