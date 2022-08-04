@@ -5,7 +5,7 @@ import { useState } from "react"
 import axios from "axios"
 import { ThreeDots } from  'react-loader-spinner'
 
-export default function Login(){
+export default function Login({setImgusuario}){
 
     const [email, setEmail] = useState("")
     const [senha, setSenha] = useState("")
@@ -27,7 +27,8 @@ export default function Login(){
 		})
 
             requisicao.then((req)=>{
-                console.log(req.data)
+                setImgusuario(req.data.image)
+                navigate("/habitos")
             })
             .catch(()=>{
                 setLoading("false")

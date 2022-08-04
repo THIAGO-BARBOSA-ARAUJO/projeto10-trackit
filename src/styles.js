@@ -79,5 +79,54 @@ export const Styledlogin = styled.div`
 
 `
 
-
 //component Login.js cadastro.js
+
+
+
+
+
+
+
+
+
+//component header da pasta habitos
+
+export const Headerabitos = styled.div`
+    
+    max-width: 375px;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 70px;
+    background: #126BA5;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
+    padding: 0 18px;
+
+    p {
+
+        font-family: 'Playball';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 38.982px;
+        line-height: 49px;
+        color: #FFFFFF;
+    }
+
+    .img {
+        width: 51px;
+        height: 51px;
+        border-radius: 98.5px;
+        background-image: url(${(props)=> props.imgusuario});
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+
+`
+
+
+
+//component header da pasta habitos
