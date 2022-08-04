@@ -2,12 +2,12 @@ import Header from "./Header";
 import { useState } from "react";
 import styled from "styled-components";
 import Criahabito from "./Criahabito"
+import Pegahabitos from "./Pegahabitos";
 
 export default function Habitos({imgusuario}) {
 
     const [criahabito, setCriahabito] = useState(false)
     const [diasselect, setDiasselect] = useState([])
-
 
     return(
         <>
@@ -18,6 +18,7 @@ export default function Habitos({imgusuario}) {
                     <button onClick={()=>{setCriahabito(true)}} className="btn-acrecentar-habitos">+</button>
                 </Meushabitos>
                 <Criahabito diasselect={diasselect} setDiasselect={setDiasselect} setCriahabito={setCriahabito} criahabito={criahabito} />
+                <Pegahabitos />
                 <p>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</p>
             </StyleHabitos>
         </>

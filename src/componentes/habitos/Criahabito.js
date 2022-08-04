@@ -2,13 +2,12 @@ import styled from "styled-components";
 import { useState } from "react";
 import axios from "axios";
 
-export default function Criahabito({diasselect, setDiasselect, criahabito, setCriahabito }) {
+export default function Criahabito({atualizarhabitos, setAtualizarhabitos, diasselect, setDiasselect, criahabito, setCriahabito }) {
+    
     const semana = ["D", "S", "T", "Q", "Q", "S", "S"]
 
    
     const [nomehabito, setNomehabito] = useState("")
-
-   console.log(localStorage.getItem("token"))
 
 
     function pegaDiasselect(id){
@@ -27,7 +26,7 @@ export default function Criahabito({diasselect, setDiasselect, criahabito, setCr
      function enviahabito() {
 
 		try{
-			const requisicao = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", {
+			axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", {
                 name: nomehabito,
                 days: diasselect 
 		}, {
@@ -35,7 +34,6 @@ export default function Criahabito({diasselect, setDiasselect, criahabito, setCr
                 Authorization: `Bearer ${localStorage.getItem("token")}`
             }
         })
-        console.log(requisicao)
 		}catch {
 			console.log("deu ruim")
 		}
@@ -65,7 +63,8 @@ export default function Criahabito({diasselect, setDiasselect, criahabito, setCr
               }}>
               Cancelar
             </button>
-            <button onClick={()=>{enviahabito()}}>Salvar</button>
+            <button onClick={()=>(enviahabito(),
+                    setAtualizarhabitos(!atualizarhabitos))}>Salvar</button>
           </div>
         </Styledcriahabito>
       ) : (
@@ -75,14 +74,17 @@ export default function Criahabito({diasselect, setDiasselect, criahabito, setCr
   );
 }
 
-function Day({marcado, dias, pegaDiasselect, ID }) {
+export function Day({marcado, dias, pegaDiasselect, ID }) {
   const [selecionado, setSelecionado] = useState(marcado);
+  function handleClick(){
+        if(pegaDiasselect){
+            setSelecionado((estadoant) => !estadoant);
+            pegaDiasselect(ID)
+        }
+  }
   return (
     <Styleday 
-      onClick={() => {
-        setSelecionado((estadoant) => !estadoant);
-        pegaDiasselect(ID)
-      }}
+      onClick={handleClick}
       className="dia"
       selecionado={selecionado}
     >

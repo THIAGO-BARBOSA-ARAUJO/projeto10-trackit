@@ -85,10 +85,6 @@ export const Styledlogin = styled.div`
 
 
 
-
-
-
-
 //component header da pasta habitos
 
 export const Headerabitos = styled.div`
