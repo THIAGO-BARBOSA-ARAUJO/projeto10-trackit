@@ -28,6 +28,7 @@ export default function Login({setImgusuario}){
 
             requisicao.then((req)=>{
                 setImgusuario(req.data.image)
+                localStorage.setItem("token", req.data.token)
                 navigate("/habitos")
             })
             .catch(()=>{

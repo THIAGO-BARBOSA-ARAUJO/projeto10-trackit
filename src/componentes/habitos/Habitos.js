@@ -6,6 +6,8 @@ import Criahabito from "./Criahabito"
 export default function Habitos({imgusuario}) {
 
     const [criahabito, setCriahabito] = useState(false)
+    const [diasselect, setDiasselect] = useState([])
+
 
     return(
         <>
@@ -15,7 +17,7 @@ export default function Habitos({imgusuario}) {
                     <p>Meus hábitos</p>
                     <button onClick={()=>{setCriahabito(true)}} className="btn-acrecentar-habitos">+</button>
                 </Meushabitos>
-                <Criahabito setCriahabito={setCriahabito} criahabito={criahabito} />
+                <Criahabito diasselect={diasselect} setDiasselect={setDiasselect} setCriahabito={setCriahabito} criahabito={criahabito} />
                 <p>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</p>
             </StyleHabitos>
         </>
