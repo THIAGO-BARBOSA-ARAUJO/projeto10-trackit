@@ -1,9 +1,11 @@
 import Header from "./Header";
-import { useEffect, useState } from "react";
-import styled from "styled-components";
 import Criahabito from "./Criahabito"
 import Pegahabitos from "./Pegahabitos";
+import Footer from "./Footer";
+import { useEffect, useState } from "react";
+import styled from "styled-components";
 import axios from "axios";
+
 
 export default function Habitos({imgusuario}) {
 
@@ -38,8 +40,9 @@ export default function Habitos({imgusuario}) {
                 </Meushabitos>
                 <Criahabito renderizarhabitos={renderizarhabitos} diasselect={diasselect} setDiasselect={setDiasselect} setCriahabito={setCriahabito} criahabito={criahabito} />
                 <Pegahabitos renderizarhabitos={renderizarhabitos} meushabitos={meushabitos} />
-                <p>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</p>
+                {meushabitos.length === 0 ? (<p>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</p>) : ""}
             </StyleHabitos>
+            <Footer/>
         </>
     )
 }
@@ -50,7 +53,7 @@ const StyleHabitos = styled.div`
     margin: 0 auto;
     max-width: 375px;
     width: 100%;
-    height: 100vh;
+    height: 83vh;
     padding: 0 17px;
     
     p { 

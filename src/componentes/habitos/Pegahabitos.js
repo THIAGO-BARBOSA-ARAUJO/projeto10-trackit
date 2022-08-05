@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import axios from "axios";
 import Lixeira from "../../img/lixeira.svg"
 import styled from "styled-components";
@@ -50,7 +49,6 @@ const Styledpegahabito = styled.div`
     justify-content: space-between;
     margin: 10px 0;
     width: 340px;
-    height: 91px;
     background: #FFFFFF;
     border-radius: 5px;
 
@@ -58,6 +56,7 @@ const Styledpegahabito = styled.div`
     .nome-dias {
         margin-top: 13px;
         margin-left: 15px;
+        margin-bottom: 10px;
     }
 
     .nome-dias p {
@@ -69,6 +68,7 @@ const Styledpegahabito = styled.div`
     }
 
     .img {
+        height: 100%;
         cursor: pointer;
         margin-top: 11px;
         margin-right:10px;
