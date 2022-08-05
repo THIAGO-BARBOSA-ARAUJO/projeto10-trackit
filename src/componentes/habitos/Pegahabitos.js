@@ -4,26 +4,20 @@ import Lixeira from "../../img/lixeira.svg"
 import styled from "styled-components";
 import { Day } from "./Criahabito";
 
-export default function Pegahabitos({atualizarhabitos}) {
+export default function Pegahabitos({renderizarhabitos, meushabitos}) {
     
-    const [meushabitos, setMeushabitos] = useState([])
-    //const [nomehabito, setNomehabito] = useState()
-    const semana = ["D", "S", "T", "Q", "Q", "S", "S"]
-    const [diaselecionado, setDiaselecionado] = useState([])
-
-
-    useEffect(() => {
-		const requisicao = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", {
+    function deletarhabito(id){
+        const requisicao = axios.delete(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}`,{
             headers: {
                 Authorization: `Bearer ${localStorage.getItem("token")}`
             }
         })
+        renderizarhabitos()
+    }
 
-		requisicao.then((resposta) => {
-            setMeushabitos(resposta.data)
-            //console.log(resposta.data)
-		})
-	}, [])
+    //const [nomehabito, setNomehabito] = useState()
+    const semana = ["D", "S", "T", "Q", "Q", "S", "S"]
+    //const [diaselecionado, setDiaselecionado] = useState([])
     
     return(
         meushabitos.map((habitos, index)=>{
@@ -41,7 +35,9 @@ export default function Pegahabitos({atualizarhabitos}) {
                        </div>
                     </div>
                     <div className="img">
-                        <img src={Lixeira} alt="lalalal"/>
+                        <img onClick={()=>{
+                            deletarhabito(habitos.id)
+                        }} src={Lixeira} alt="lalalal"/>
                     </div>
                 </Styledpegahabito>
             )

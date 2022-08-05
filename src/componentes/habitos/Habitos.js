@@ -1,13 +1,32 @@
 import Header from "./Header";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Criahabito from "./Criahabito"
 import Pegahabitos from "./Pegahabitos";
+import axios from "axios";
 
 export default function Habitos({imgusuario}) {
 
     const [criahabito, setCriahabito] = useState(false)
     const [diasselect, setDiasselect] = useState([])
+    const [meushabitos, setMeushabitos] = useState([])
+
+
+    function renderizarhabitos(){
+        const requisicao = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`
+            }
+        })
+
+		requisicao.then((resposta) => {
+            setMeushabitos(resposta.data)
+		})
+    }
+
+    useEffect(() => {
+		renderizarhabitos()
+	}, [])
 
     return(
         <>
@@ -17,8 +36,8 @@ export default function Habitos({imgusuario}) {
                     <p>Meus hábitos</p>
                     <button onClick={()=>{setCriahabito(true)}} className="btn-acrecentar-habitos">+</button>
                 </Meushabitos>
-                <Criahabito diasselect={diasselect} setDiasselect={setDiasselect} setCriahabito={setCriahabito} criahabito={criahabito} />
-                <Pegahabitos />
+                <Criahabito renderizarhabitos={renderizarhabitos} diasselect={diasselect} setDiasselect={setDiasselect} setCriahabito={setCriahabito} criahabito={criahabito} />
+                <Pegahabitos renderizarhabitos={renderizarhabitos} meushabitos={meushabitos} />
                 <p>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</p>
             </StyleHabitos>
         </>

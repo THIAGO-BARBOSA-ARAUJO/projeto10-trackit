@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { useState } from "react";
 import axios from "axios";
 
-export default function Criahabito({atualizarhabitos, setAtualizarhabitos, diasselect, setDiasselect, criahabito, setCriahabito }) {
+export default function Criahabito({renderizarhabitos, diasselect, setDiasselect, criahabito, setCriahabito }) {
     
     const semana = ["D", "S", "T", "Q", "Q", "S", "S"]
 
@@ -34,6 +34,10 @@ export default function Criahabito({atualizarhabitos, setAtualizarhabitos, diass
                 Authorization: `Bearer ${localStorage.getItem("token")}`
             }
         })
+        renderizarhabitos()
+        setCriahabito(false)
+        setDiasselect([])
+        setNomehabito("")
 		}catch {
 			console.log("deu ruim")
 		}
@@ -63,8 +67,7 @@ export default function Criahabito({atualizarhabitos, setAtualizarhabitos, diass
               }}>
               Cancelar
             </button>
-            <button onClick={()=>(enviahabito(),
-                    setAtualizarhabitos(!atualizarhabitos))}>Salvar</button>
+            <button onClick={()=>enviahabito()}>Salvar</button>
           </div>
         </Styledcriahabito>
       ) : (
