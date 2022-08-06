@@ -4,8 +4,7 @@ import Cadastro from "./cadastro/Cadastro"
 import Habitos from "./habitos/Habitos"
 import Hoje from "./hoje/Hoje"
 import { useState } from "react"
-
-
+import React from 'react';
 
 export default function App() {
 

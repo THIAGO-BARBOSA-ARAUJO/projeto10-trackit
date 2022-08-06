@@ -4,6 +4,8 @@ import Header from "../habitos/Header"
 import dayjs from "dayjs"
 import { useEffect, useState } from "react"
 import axios from "axios"
+import CheckedCinza from "../../img/checked-cinza.png"
+import CheckedVerde from "../../img/checked-verde.png"
 
 export default function Hoje({imgusuario, porcentagem}){
 
@@ -46,9 +48,36 @@ export default function Hoje({imgusuario, porcentagem}){
 
     },[])
 
-    
+    function desmarcarComoFeito(id){
+        const requisicao = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}/uncheck`,{}, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`
+            }
+        })
 
-    function renderizarhabitos(){
+		requisicao.then((resposta) => {
+            console.log(resposta.data)
+            renderizarhabitosdehoje()
+		})
+    }
+
+    
+    function marcarComoFeito(id){
+        const requisicao = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}/check`,{}, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`
+            }
+        })
+
+		requisicao.then((resposta) => {
+            console.log(resposta.data)
+            renderizarhabitosdehoje()
+		})
+    }
+
+
+
+    function renderizarhabitosdehoje(){
         const requisicao = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today", {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem("token")}`
@@ -57,14 +86,13 @@ export default function Hoje({imgusuario, porcentagem}){
 
 		requisicao.then((resposta) => {
             sethabitosdehoje(resposta.data)
+            console.log(resposta.data)
 		})
     }
 
     useEffect(() => {
-		renderizarhabitos()
+		renderizarhabitosdehoje()
 	}, [])
-
-    console.log(habitosdehoje)
 
     return(
         <>  
@@ -72,16 +100,16 @@ export default function Hoje({imgusuario, porcentagem}){
             <StyleHoje className="hoje">
                 <h1>{diadasemana}, {dayjs().format('DD/MM')}</h1>
                 <p>67% dos hábitos concluídos</p>
-                {habitosdehoje.map((habitos, key)=>{
+                {habitosdehoje.map((habito, key)=>{
                     return(
                         <div key={key} className="habitoshoje">
                             <div className="textos">
-                                <h2>{habitos.name}</h2>
-                                <p>Sequência atual: <span className="atual">{habitos.currentSequence} dias</span></p>
-                                <p>Seu recorde: <span className="record">{habitos.highestSequence} dias</span></p>
+                                <h2>{habito.name}</h2>
+                                <p>Sequência atual: <span className="atual">{habito.currentSequence} dias</span></p>
+                                <p>Seu recorde: <span className="record">{habito.highestSequence} dias</span></p>
                             </div>
                             <label>
-                               <img/>
+                               <img onClick={()=>(habito.done ? (desmarcarComoFeito(habito.id)) : (marcarComoFeito(habito.id)))} src={habito.done ? CheckedVerde : CheckedCinza} />
                             </label>
                         </div>
                     )
@@ -136,7 +164,7 @@ const StyleHoje = styled.div`
     }
 
     .habitoshoje .textos {
-        max-width: 250px;
+        max-width: 230px;
     }
 
     .habitoshoje h2 {
@@ -168,6 +196,12 @@ const StyleHoje = styled.div`
         align-items: center;
         margin-right: 13px;
         background-color: "red";
+    }
+
+    label img {
+        width: 69px;
+        height: 69px;
+        cursor: pointer;
     }
 
    
