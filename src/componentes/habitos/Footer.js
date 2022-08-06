@@ -1,17 +1,20 @@
 import styled from "styled-components"
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
+import { useNavigate } from "react-router-dom";
+import React, { Component }  from 'react';
 
-export default function Footer() {
+export default function Footer({porcentagem}) {
 
-    const percentage = 90;
-
+    let navigate = useNavigate()
     return(
         <StyleFooter>
-            <p>Hábitos</p>
-            <div style={{ width: 91, height: 91 }}>
-            <CircularProgressbar value={percentage} text="Hoje" background backgroundPadding={6} styles={buildStyles({backgroundColor: '#52B6FF', textColor: "#fff", pathColor: "#fff", trailColor: "transparent"})}/>
+            <p onClick={()=>{navigate("/habitos")}}>Hábitos</p>
+
+            <div onClick={()=>{navigate("/hoje")}} style={{ width: 91, height: 91 }}>
+            <CircularProgressbar value={porcentagem} text="Hoje" background backgroundPadding={6} styles={buildStyles({backgroundColor: '#52B6FF', textColor: "#fff", pathColor: "#fff", trailColor: "transparent"})}/>
             </div>
+            
             <p>Histórico</p>
         </StyleFooter>
     )
@@ -29,13 +32,16 @@ const StyleFooter = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    position: relative;
+    position: fixed;
+    bottom: 0;
+    left: 0;
 
     div {
         position: absolute;
         bottom: 10px;
         left: 50%;
-        transform: translateX(-50%)
+        transform: translateX(-50%);
+        cursor: pointer;
     }
 
     p {

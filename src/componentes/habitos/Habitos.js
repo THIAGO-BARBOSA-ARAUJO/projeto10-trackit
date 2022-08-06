@@ -7,7 +7,7 @@ import styled from "styled-components";
 import axios from "axios";
 
 
-export default function Habitos({imgusuario}) {
+export default function Habitos({ porcentagem, imgusuario}) {
 
     const [criahabito, setCriahabito] = useState(false)
     const [diasselect, setDiasselect] = useState([])
@@ -42,7 +42,7 @@ export default function Habitos({imgusuario}) {
                 <Pegahabitos renderizarhabitos={renderizarhabitos} meushabitos={meushabitos} />
                 {meushabitos.length === 0 ? (<p>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</p>) : ""}
             </StyleHabitos>
-            <Footer/>
+            <Footer porcentagem={porcentagem} />
         </>
     )
 }

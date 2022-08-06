@@ -21,7 +21,7 @@ export default function Pegahabitos({renderizarhabitos, meushabitos}) {
     return(
         meushabitos.map((habitos, index)=>{
             return(
-                <Styledpegahabito key={index} className="meushabitos">
+                <Styledpegahabito key={index}>
                     <div className="nome-dias">
                         <p>{habitos.name}</p>
                        <div className="dias">
