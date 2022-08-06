@@ -17,7 +17,7 @@ export default function App() {
                 <Route path="/" element={<Login setImgusuario={setImgusuario} />} />
                 <Route path="/cadastro" element={<Cadastro />} />
                 <Route path="/habitos" element={<Habitos porcentagem={porcentagem} imgusuario={imgusuario} />} />
-                <Route path="/hoje" element={<Hoje imgusuario={imgusuario} porcentagem={porcentagem}/>} />
+                <Route path="/hoje" element={<Hoje setPorcentagem={setPorcentagem} imgusuario={imgusuario} porcentagem={porcentagem}/>} />
             </Routes>
         </BrowserRouter>
     )

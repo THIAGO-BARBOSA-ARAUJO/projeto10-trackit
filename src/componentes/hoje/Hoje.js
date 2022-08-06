@@ -7,7 +7,7 @@ import axios from "axios"
 import CheckedCinza from "../../img/checked-cinza.png"
 import CheckedVerde from "../../img/checked-verde.png"
 
-export default function Hoje({imgusuario, porcentagem}){
+export default function Hoje({setPorcentagem, imgusuario, porcentagem}){
 
     const [diadasemana, setDiadasemana] = useState("")
     const [habitosdehoje, sethabitosdehoje] = useState([])
@@ -48,6 +48,13 @@ export default function Hoje({imgusuario, porcentagem}){
 
     },[])
 
+    useEffect(()=>{
+
+        const porcentagematual = (habitosdehoje.filter((habito)=> habito.done).length / habitosdehoje.length) * 100
+        setPorcentagem(porcentagematual.toFixed(0))
+
+    },[habitosdehoje])
+
     function desmarcarComoFeito(id){
         const requisicao = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}/uncheck`,{}, {
             headers: {
@@ -56,7 +63,7 @@ export default function Hoje({imgusuario, porcentagem}){
         })
 
 		requisicao.then((resposta) => {
-            console.log(resposta.data)
+            //console.log(resposta.data)
             renderizarhabitosdehoje()
 		})
     }
@@ -70,11 +77,10 @@ export default function Hoje({imgusuario, porcentagem}){
         })
 
 		requisicao.then((resposta) => {
-            console.log(resposta.data)
+            //console.log(resposta.data)
             renderizarhabitosdehoje()
 		})
     }
-
 
 
     function renderizarhabitosdehoje(){
@@ -86,7 +92,7 @@ export default function Hoje({imgusuario, porcentagem}){
 
 		requisicao.then((resposta) => {
             sethabitosdehoje(resposta.data)
-            console.log(resposta.data)
+            //console.log(resposta.data)
 		})
     }
 
@@ -99,8 +105,9 @@ export default function Hoje({imgusuario, porcentagem}){
             <Header imgusuario={imgusuario} />
             <StyleHoje className="hoje">
                 <h1>{diadasemana}, {dayjs().format('DD/MM')}</h1>
-                <p>67% dos hábitos concluídos</p>
+                <p>{porcentagem}% dos hábitos concluídos</p>
                 {habitosdehoje.map((habito, key)=>{
+
                     return(
                         <div key={key} className="habitoshoje">
                             <div className="textos">
@@ -109,7 +116,8 @@ export default function Hoje({imgusuario, porcentagem}){
                                 <p>Seu recorde: <span className="record">{habito.highestSequence} dias</span></p>
                             </div>
                             <label>
-                               <img onClick={()=>(habito.done ? (desmarcarComoFeito(habito.id)) : (marcarComoFeito(habito.id)))} src={habito.done ? CheckedVerde : CheckedCinza} />
+                               <img onClick={()=>{
+                                (habito.done ? desmarcarComoFeito(habito.id) : marcarComoFeito(habito.id))}} src={habito.done ? CheckedVerde : CheckedCinza} />
                             </label>
                         </div>
                     )
