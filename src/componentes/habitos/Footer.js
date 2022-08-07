@@ -19,7 +19,7 @@ export default function Footer() {
             <CircularProgressbar value={porcentagem} text="Hoje" background backgroundPadding={6} styles={buildStyles({backgroundColor: '#52B6FF', textColor: "#fff", pathColor: "#fff", trailColor: "transparent"})}/>
             </div>
             
-            <p>Histórico</p>
+            <p onClick={()=>{navigate("/historico")}}>Histórico</p>
         </StyleFooter>
     )
 }

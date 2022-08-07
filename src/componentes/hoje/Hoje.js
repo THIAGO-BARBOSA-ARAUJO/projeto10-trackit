@@ -11,7 +11,6 @@ import CheckedVerde from "../../img/checked-verde.png"
 export default function Hoje(){
 
     const [diadasemana, setDiadasemana] = useState("")
-    //const [habitosdehoje, sethabitosdehoje] = useState([])
 
     const {habitosdehoje, sethabitosdehoje, imgusuario, porcentagem, setporcentagem } = useContext(CustomerContext)
 
@@ -64,8 +63,7 @@ export default function Hoje(){
             }
         })
 
-		requisicao.then((resposta) => {
-            //console.log(resposta.data)
+		requisicao.then(() => {
             renderizarhabitosdehoje()
 		})
     }
@@ -78,8 +76,7 @@ export default function Hoje(){
             }
         })
 
-		requisicao.then((resposta) => {
-            //console.log(resposta.data)
+		requisicao.then(() => {
             renderizarhabitosdehoje()
 		})
     }
@@ -94,7 +91,6 @@ export default function Hoje(){
 
 		requisicao.then((resposta) => {
             sethabitosdehoje(resposta.data)
-            //console.log(resposta.data)
 		})
     }
 
