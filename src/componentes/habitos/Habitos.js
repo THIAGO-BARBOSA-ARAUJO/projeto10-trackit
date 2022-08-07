@@ -36,8 +36,13 @@ export default function Habitos() {
 
     useEffect(()=>{
 
-        const porcentagematual = (habitosdehoje.filter((habito)=> habito.done).length / habitosdehoje.length) * 100
-        setporcentagem(porcentagematual.toFixed(0))
+        const porcentagematual = String((habitosdehoje.filter((habito)=> habito.done).length / habitosdehoje.length) * 100)
+        if(porcentagematual === "NaN"){
+            setporcentagem(0)
+        }else{
+            const porcen = porcentagematual.substring(0,3) 
+            setporcentagem( porcen.replace(".", ""))
+        }
 
     },[habitosdehoje])
 

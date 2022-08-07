@@ -53,8 +53,7 @@ export default function Hoje(){
     useEffect(()=>{
 
         const porcentagematual = String((habitosdehoje.filter((habito)=> habito.done).length / habitosdehoje.length) * 100)
-        console.log(typeof porcentagematual)
-        if(porcentagematual == "NaN"){
+        if(porcentagematual === "NaN"){
             setporcentagem(0)
         }else{
             const porcen = porcentagematual.substring(0,3) 
