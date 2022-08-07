@@ -65,4 +65,8 @@ export default function Login(){
 login: nyx@gmail.com
 senha: 123456
 
+usar essa conta
+login: nyx2@gmail.com
+senha: 123456
+
 */
