@@ -1,10 +1,9 @@
 import imglogin from "../../img/img-login.svg"
 import { Styledlogin} from "../../styles"
 import { useNavigate } from "react-router-dom"
-import { useState, useContext } from "react"
+import { useState } from "react"
 import axios from "axios"
 import { ThreeDots } from  'react-loader-spinner'
-import { CustomerContext } from "../../contexts/customer"
 
 
 export default function Login(){
@@ -14,7 +13,6 @@ export default function Login(){
     const [loading, setLoading] = useState("false")
 
     let navigate = useNavigate()
-    //const { setimgusuario } = useContext(CustomerContext)
 
 
     function fazerLogin(event) {
@@ -39,7 +37,6 @@ export default function Login(){
                 setLoading("false")
             })
 
-			//navigate("/")
 		}catch {
 			console.log("deu ruim")
             

@@ -81,11 +81,11 @@ export default function Habitos() {
 
 const StyleHabitos = styled.div`
 
-    background: #E5E5E5;
+    
     margin: 0 auto;
     max-width: 375px;
     width: 100%;
-    min-height: 85vh;
+    max-height: 84vh;
     height: 100%;
     padding: 0 17px;
     overflow: scroll;

@@ -11,6 +11,7 @@ import CheckedVerde from "../../img/checked-verde.png"
 export default function Hoje(){
 
     const [diadasemana, setDiadasemana] = useState("")
+    const [ficaverde, setDFicaverde] = useState(false)
 
     const {habitosdehoje, sethabitosdehoje, imgusuario, porcentagem, setporcentagem } = useContext(CustomerContext)
 
@@ -101,17 +102,17 @@ export default function Hoje(){
     return(
         <>  
             <Header imgusuario={imgusuario} />
-            <StyleHoje className="hoje">
+            <StyleHoje ficaverde={ficaverde} >
                 <h1>{diadasemana}, {dayjs().format('DD/MM')}</h1>
                 <p>{porcentagem}% dos hábitos concluídos</p>
                 {habitosdehoje.map((habito, key)=>{
-
                     return(
                         <div key={key} className="habitoshoje">
                             <div className="textos">
                                 <h2>{habito.name}</h2>
                                 <p>Sequência atual: <span className="atual">{habito.currentSequence} dias</span></p>
                                 <p>Seu recorde: <span className="record">{habito.highestSequence} dias</span></p>
+                                
                             </div>
                             <label>
                                <img onClick={()=>{
@@ -127,8 +128,7 @@ export default function Hoje(){
 }
 
 const StyleHoje = styled.div`
-
-    background: #E5E5E5;
+    
     margin: 0 auto;
     max-width: 375px;
     width: 100%;
@@ -136,6 +136,7 @@ const StyleHoje = styled.div`
     height: 100%;
     padding: 0 17px;
     overflow: scroll;
+    
 
     h1{
         font-family: 'Lexend Deca';
@@ -145,7 +146,7 @@ const StyleHoje = styled.div`
         line-height: 29px;
         color: #126BA5;
         margin-bottom: 3px;
-        margin-left: 10px
+        margin-top: 28px;
         
     }
 
@@ -157,7 +158,6 @@ const StyleHoje = styled.div`
         line-height: 22px;
         color: #8FC549;
         margin-bottom: 28px;
-        margin-left: 10px
     }
 
     .habitoshoje {
@@ -168,7 +168,7 @@ const StyleHoje = styled.div`
         margin-bottom: 10px;
         display: flex;
         justify-content: space-between;
-        margin-left: 10px
+        
     }
 
     .habitoshoje .textos {
@@ -195,8 +195,16 @@ const StyleHoje = styled.div`
         line-height: 16px;
         color: #666666;
         margin-bottom: 3px;
+        margin-left: 10px;
     }
 
+    .habitoshoje p:first-of-type span {
+        color: #8FC549;
+    }
+
+    .habitoshoje p:last-of-type span {
+        color: ${(props)=>props.ficaverde ? "#8FC549" : "#666666"}; 
+    }
 
     label {
         display: flex;

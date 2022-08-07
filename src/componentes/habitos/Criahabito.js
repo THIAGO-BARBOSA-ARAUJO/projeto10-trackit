@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { useState } from "react";
 import axios from "axios";
+import { ThreeDots } from  'react-loader-spinner'
 
 export default function Criahabito({renderizarhabitos, diasselect, setDiasselect, criahabito, setCriahabito }) {
     
@@ -8,7 +9,7 @@ export default function Criahabito({renderizarhabitos, diasselect, setDiasselect
 
    
     const [nomehabito, setNomehabito] = useState("")
-
+    const [loading, setLoading] = useState("false")
 
     function pegaDiasselect(id){
         let jatem = diasselect.includes(id)
@@ -23,10 +24,10 @@ export default function Criahabito({renderizarhabitos, diasselect, setDiasselect
      }
 
 
-     function enviahabito() {
-
+    function enviahabito() {
+      setLoading("true")
 		try{
-			axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", {
+			const requisicao = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", {
                 name: nomehabito,
                 days: diasselect 
 		}, {
@@ -34,10 +35,17 @@ export default function Criahabito({renderizarhabitos, diasselect, setDiasselect
                 Authorization: `Bearer ${localStorage.getItem("token")}`
             }
         })
-        renderizarhabitos()
-        setCriahabito(false)
-        setDiasselect([])
-        setNomehabito("")
+        requisicao.then(()=>{
+          setCriahabito(false)
+          setDiasselect([])
+          setNomehabito("")
+          renderizarhabitos()
+          setLoading("false")
+        })
+        .catch(()=>{
+          setLoading("false")
+      })
+        
 		}catch {
 			console.log("deu ruim")
 		}
@@ -47,7 +55,7 @@ export default function Criahabito({renderizarhabitos, diasselect, setDiasselect
   return (
     <>
       {criahabito ? (
-        <Styledcriahabito>
+        <Styledcriahabito loading={loading}>
           <div className="nome">
             <input type="text" value={nomehabito} onChange={(e)=>{setNomehabito(e.target.value)}} placeholder="nome do hábito" />
             <ul>
@@ -67,7 +75,7 @@ export default function Criahabito({renderizarhabitos, diasselect, setDiasselect
               }}>
               Cancelar
             </button>
-            <button onClick={()=>enviahabito()}>Salvar</button>
+            <button onClick={()=>enviahabito()}>{loading === "true" ? (<ThreeDots color="#FFFFFF" height={80} width={80} />) : "Salvar"}</button>
           </div>
         </Styledcriahabito>
       ) : (
@@ -112,6 +120,7 @@ const Styledcriahabito = styled.div`
   background: #ffffff;
   border-radius: 5px;
   margin-bottom: 29px;
+  pointer-events: ${(props)=>props.loading === "true" ? "none" : "all"};
 
   div:first-of-type {
     height: 100%;
@@ -170,6 +179,7 @@ const Styledcriahabito = styled.div`
       height: 35px;
       background: #52b6ff;
       border-radius: 4.63636px;
+      opacity: ${(props)=>props.loading === "true" ? "0.5" : "1"};
 
       font-family: "Lexend Deca";
       font-style: normal;

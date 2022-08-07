@@ -12,7 +12,6 @@ import { CustomerContext } from "../contexts/customer"
 
 export default function App() {
 
-    const [imgusuario, setImgusuario] = useState()
     const [porcentagem, setPorcentagem] = useState()
     const [habitosdehoje, setHabitosdehoje] = useState([])
 
