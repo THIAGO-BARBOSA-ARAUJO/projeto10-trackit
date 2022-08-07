@@ -11,9 +11,9 @@ import CheckedVerde from "../../img/checked-verde.png"
 export default function Hoje(){
 
     const [diadasemana, setDiadasemana] = useState("")
-    const [habitosdehoje, sethabitosdehoje] = useState([])
+    //const [habitosdehoje, sethabitosdehoje] = useState([])
 
-    const {imgusuario, porcentagem, setporcentagem } = useContext(CustomerContext)
+    const {habitosdehoje, sethabitosdehoje, imgusuario, porcentagem, setporcentagem } = useContext(CustomerContext)
 
     useEffect(()=>{
 

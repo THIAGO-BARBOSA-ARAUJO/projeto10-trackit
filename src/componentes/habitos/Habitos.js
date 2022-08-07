@@ -14,7 +14,7 @@ export default function Habitos() {
     const [criahabito, setCriahabito] = useState(false)
     const [diasselect, setDiasselect] = useState([])
     const [meushabitos, setMeushabitos] = useState([])
-    const { imgusuario } = useContext(CustomerContext)
+    const {habitosdehoje, sethabitosdehoje, setporcentagem, imgusuario } = useContext(CustomerContext)
 
     function renderizarhabitos(){
         const requisicao = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", {
@@ -31,6 +31,35 @@ export default function Habitos() {
     useEffect(() => {
 		renderizarhabitos()
 	}, [])
+
+
+
+    useEffect(()=>{
+
+        const porcentagematual = (habitosdehoje.filter((habito)=> habito.done).length / habitosdehoje.length) * 100
+        setporcentagem(porcentagematual.toFixed(0))
+
+    },[habitosdehoje])
+
+
+    function renderizarhabitosdehoje(){
+        const requisicao = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today", {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`
+            }
+        })
+
+		requisicao.then((resposta) => {
+            sethabitosdehoje(resposta.data)
+            //console.log(resposta.data)
+		})
+    }
+
+    useEffect(() => {
+		renderizarhabitosdehoje()
+	}, [])
+
+
 
     return(
         <>
@@ -56,7 +85,7 @@ const StyleHabitos = styled.div`
     margin: 0 auto;
     max-width: 375px;
     width: 100%;
-    min-height: 84vh;
+    min-height: 85vh;
     height: 100%;
     padding: 0 17px;
     overflow: scroll;

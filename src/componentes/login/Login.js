@@ -14,7 +14,7 @@ export default function Login(){
     const [loading, setLoading] = useState("false")
 
     let navigate = useNavigate()
-    const { setimgusuario } = useContext(CustomerContext)
+    //const { setimgusuario } = useContext(CustomerContext)
 
 
     function fazerLogin(event) {
@@ -31,7 +31,7 @@ export default function Login(){
 		})
 
             requisicao.then((req)=>{
-                setimgusuario(req.data.image)
+                localStorage.setItem("imguser", req.data.image)
                 localStorage.setItem("token", req.data.token)
                 navigate("/habitos")
             })

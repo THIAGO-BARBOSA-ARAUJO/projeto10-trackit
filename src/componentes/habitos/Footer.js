@@ -31,7 +31,7 @@ const StyleFooter = styled.div`
     margin: 0 auto;
     width: 375px;
     height: 70px;
-    background: red;
+    background: #FFFFFF;
 
     display: flex;
     justify-content: space-between;

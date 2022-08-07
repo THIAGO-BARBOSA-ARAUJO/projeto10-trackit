@@ -12,10 +12,11 @@ export default function App() {
 
     const [imgusuario, setImgusuario] = useState()
     const [porcentagem, setPorcentagem] = useState()
+    const [habitosdehoje, setHabitosdehoje] = useState([])
 
     return(
         <BrowserRouter>
-            <CustomerContext.Provider value={{imgusuario, setimgusuario: setImgusuario , porcentagem, setporcentagem: setPorcentagem}}>
+            <CustomerContext.Provider value={{habitosdehoje, sethabitosdehoje: setHabitosdehoje , porcentagem, setporcentagem: setPorcentagem}}>
                 <Routes>
                     <Route path="/" element={<Login />} />
                     <Route path="/cadastro" element={<Cadastro />} />
