@@ -12,7 +12,7 @@ import { CustomerContext } from "../contexts/customer"
 
 export default function App() {
 
-    const [porcentagem, setPorcentagem] = useState()
+    const [porcentagem, setPorcentagem] = useState(0)
     const [habitosdehoje, setHabitosdehoje] = useState([])
 
     return(

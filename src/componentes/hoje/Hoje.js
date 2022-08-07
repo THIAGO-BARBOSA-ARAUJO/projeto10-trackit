@@ -11,7 +11,7 @@ import CheckedVerde from "../../img/checked-verde.png"
 export default function Hoje(){
 
     const [diadasemana, setDiadasemana] = useState("")
-    const [ficaverde, setDFicaverde] = useState(false)
+    const [ficaverde, setFicaverde] = useState(false)
 
     const {habitosdehoje, sethabitosdehoje, imgusuario, porcentagem, setporcentagem } = useContext(CustomerContext)
 
@@ -52,9 +52,17 @@ export default function Hoje(){
 
     useEffect(()=>{
 
-        const porcentagematual = (habitosdehoje.filter((habito)=> habito.done).length / habitosdehoje.length) * 100
-        setporcentagem(porcentagematual.toFixed(0))
-
+        const porcentagematual = String((habitosdehoje.filter((habito)=> habito.done).length / habitosdehoje.length) * 100)
+        console.log(typeof porcentagematual)
+        if(porcentagematual == "NaN"){
+            setporcentagem(0)
+        }else{
+            const porcen = porcentagematual.substring(0,3) 
+            setporcentagem( porcen.replace(".", ""))
+        }
+        
+        
+        
     },[habitosdehoje])
 
     function desmarcarComoFeito(id){
