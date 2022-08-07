@@ -6,7 +6,7 @@ import { Day } from "./Criahabito";
 export default function Pegahabitos({renderizarhabitos, meushabitos}) {
     
     function deletarhabito(id){
-        const requisicao = axios.delete(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}`,{
+        axios.delete(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}`,{
             headers: {
                 Authorization: `Bearer ${localStorage.getItem("token")}`
             }

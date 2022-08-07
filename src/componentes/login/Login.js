@@ -1,17 +1,21 @@
 import imglogin from "../../img/img-login.svg"
 import { Styledlogin} from "../../styles"
 import { useNavigate } from "react-router-dom"
-import { useState } from "react"
+import { useState, useContext } from "react"
 import axios from "axios"
 import { ThreeDots } from  'react-loader-spinner'
+import { CustomerContext } from "../../contexts/customer"
 
-export default function Login({setImgusuario}){
+
+export default function Login(){
 
     const [email, setEmail] = useState("")
     const [senha, setSenha] = useState("")
     const [loading, setLoading] = useState("false")
 
     let navigate = useNavigate()
+    const { setimgusuario } = useContext(CustomerContext)
+
 
     function fazerLogin(event) {
 		event.preventDefault();
@@ -27,7 +31,7 @@ export default function Login({setImgusuario}){
 		})
 
             requisicao.then((req)=>{
-                setImgusuario(req.data.image)
+                setimgusuario(req.data.image)
                 localStorage.setItem("token", req.data.token)
                 navigate("/habitos")
             })

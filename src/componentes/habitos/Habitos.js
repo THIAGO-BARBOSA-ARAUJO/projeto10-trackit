@@ -2,17 +2,19 @@ import Header from "./Header";
 import Criahabito from "./Criahabito"
 import Pegahabitos from "./Pegahabitos";
 import Footer from "./Footer";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { CustomerContext } from "../../contexts/customer"
 import styled from "styled-components";
 import axios from "axios";
 
 
-export default function Habitos({ porcentagem, imgusuario}) {
+
+export default function Habitos() {
 
     const [criahabito, setCriahabito] = useState(false)
     const [diasselect, setDiasselect] = useState([])
     const [meushabitos, setMeushabitos] = useState([])
-
+    const { imgusuario } = useContext(CustomerContext)
 
     function renderizarhabitos(){
         const requisicao = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", {
@@ -41,8 +43,9 @@ export default function Habitos({ porcentagem, imgusuario}) {
                 <Criahabito renderizarhabitos={renderizarhabitos} diasselect={diasselect} setDiasselect={setDiasselect} setCriahabito={setCriahabito} criahabito={criahabito} />
                 <Pegahabitos renderizarhabitos={renderizarhabitos} meushabitos={meushabitos} />
                 {meushabitos.length === 0 ? (<p>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</p>) : ""}
+                
             </StyleHabitos>
-            <Footer porcentagem={porcentagem} />
+            <Footer />
         </>
     )
 }
@@ -53,8 +56,10 @@ const StyleHabitos = styled.div`
     margin: 0 auto;
     max-width: 375px;
     width: 100%;
-    height: 83vh;
+    min-height: 84vh;
+    height: 100%;
     padding: 0 17px;
+    overflow: scroll;
     
     p { 
         font-family: 'Lexend Deca';

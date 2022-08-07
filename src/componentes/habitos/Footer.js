@@ -2,11 +2,15 @@ import styled from "styled-components"
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import { useNavigate } from "react-router-dom";
-import React, { Component }  from 'react';
+import React, { useContext }  from 'react';
+import { CustomerContext } from "../../contexts/customer";
 
-export default function Footer({porcentagem}) {
+export default function Footer() {
 
     let navigate = useNavigate()
+
+    const { porcentagem } = useContext(CustomerContext)
+
     return(
         <StyleFooter>
             <p onClick={()=>{navigate("/habitos")}}>Hábitos</p>
@@ -27,14 +31,15 @@ const StyleFooter = styled.div`
     margin: 0 auto;
     width: 375px;
     height: 70px;
-    background: #FFFFFF;
+    background: red;
 
     display: flex;
     justify-content: space-between;
     align-items: center;
     position: fixed;
     bottom: 0;
-    left: 0;
+    left: 50%;
+    transform: translateX(-50%);
 
     div {
         position: absolute;

@@ -5,20 +5,24 @@ import Habitos from "./habitos/Habitos"
 import Hoje from "./hoje/Hoje"
 import { useState } from "react"
 import React from 'react';
+import { CustomerContext } from "../contexts/customer"
+
 
 export default function App() {
 
     const [imgusuario, setImgusuario] = useState()
-    const [porcentagem, setPorcentagem] = useState(90)
+    const [porcentagem, setPorcentagem] = useState()
 
     return(
         <BrowserRouter>
-            <Routes>
-                <Route path="/" element={<Login setImgusuario={setImgusuario} />} />
-                <Route path="/cadastro" element={<Cadastro />} />
-                <Route path="/habitos" element={<Habitos porcentagem={porcentagem} imgusuario={imgusuario} />} />
-                <Route path="/hoje" element={<Hoje setPorcentagem={setPorcentagem} imgusuario={imgusuario} porcentagem={porcentagem}/>} />
-            </Routes>
+            <CustomerContext.Provider value={{imgusuario, setimgusuario: setImgusuario , porcentagem, setporcentagem: setPorcentagem}}>
+                <Routes>
+                    <Route path="/" element={<Login />} />
+                    <Route path="/cadastro" element={<Cadastro />} />
+                    <Route path="/habitos" element={<Habitos />} />
+                    <Route path="/hoje" element={<Hoje />} />
+                </Routes>
+            </CustomerContext.Provider>
         </BrowserRouter>
     )
 }

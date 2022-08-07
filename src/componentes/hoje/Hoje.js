@@ -2,16 +2,18 @@ import Footer from "../habitos/Footer"
 import styled from "styled-components"
 import Header from "../habitos/Header"
 import dayjs from "dayjs"
-import { useEffect, useState } from "react"
+import { useEffect, useState, useContext } from "react"
+import { CustomerContext } from "../../contexts/customer"
 import axios from "axios"
 import CheckedCinza from "../../img/checked-cinza.png"
 import CheckedVerde from "../../img/checked-verde.png"
 
-export default function Hoje({setPorcentagem, imgusuario, porcentagem}){
+export default function Hoje(){
 
     const [diadasemana, setDiadasemana] = useState("")
     const [habitosdehoje, sethabitosdehoje] = useState([])
 
+    const {imgusuario, porcentagem, setporcentagem } = useContext(CustomerContext)
 
     useEffect(()=>{
 
@@ -51,7 +53,7 @@ export default function Hoje({setPorcentagem, imgusuario, porcentagem}){
     useEffect(()=>{
 
         const porcentagematual = (habitosdehoje.filter((habito)=> habito.done).length / habitosdehoje.length) * 100
-        setPorcentagem(porcentagematual.toFixed(0))
+        setporcentagem(porcentagematual.toFixed(0))
 
     },[habitosdehoje])
 
@@ -134,8 +136,10 @@ const StyleHoje = styled.div`
     margin: 0 auto;
     max-width: 375px;
     width: 100%;
-    height: 83vh;
-    padding-top: 28px;
+    min-height: 84vh;
+    height: 100%;
+    padding: 0 17px;
+    overflow: scroll;
 
     h1{
         font-family: 'Lexend Deca';
