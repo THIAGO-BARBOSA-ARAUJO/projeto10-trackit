@@ -113,20 +113,44 @@ export default function Hoje(){
                 <h1>{diadasemana}, {dayjs().format('DD/MM')}</h1>
                 <p>{porcentagem}% dos hábitos concluídos</p>
                 {habitosdehoje.map((habito, key)=>{
-                    return(
-                        <div key={key} className="habitoshoje">
-                            <div className="textos">
-                                <h2>{habito.name}</h2>
-                                <p>Sequência atual: <span className="atual">{habito.currentSequence} dias</span></p>
-                                <p>Seu recorde: <span className="record">{habito.highestSequence} dias</span></p>
-                                
-                            </div>
-                            <label>
-                               <img onClick={()=>{
-                                (habito.done ? desmarcarComoFeito(habito.id) : marcarComoFeito(habito.id))}} src={habito.done ? CheckedVerde : CheckedCinza} />
-                            </label>
+                    return (
+                      <div key={key} className="habitoshoje">
+                        <div className="textos">
+                          <h2>{habito.name}</h2>
+                          {habito.done ? (
+                            <p>
+                              Sequência atual:
+                              <strong> {habito.currentSequence} dias</strong>
+                            </p>
+                          ) : (
+                            <p>
+                              Sequência atual: {habito.currentSequence} dias
+                            </p>
+                          )}
+
+                          {habito.done &&
+                          habito.currentSequence >=
+                            habito.highestSequence ? (
+                            <p>
+                              Seu recorde:
+                              <strong> {habito.highestSequence} dias</strong>
+                            </p>
+                          ) : (
+                            <p>Seu recorde: {habito.highestSequence} dias</p>
+                          )}
                         </div>
-                    )
+                        <label>
+                          <img
+                            onClick={() => {
+                              habito.done
+                                ? desmarcarComoFeito(habito.id)
+                                : marcarComoFeito(habito.id);
+                            }}
+                            src={habito.done ? CheckedVerde : CheckedCinza}
+                          />
+                        </label>
+                      </div>
+                    );
                 })}
             </StyleHoje>
             <Footer porcentagem={porcentagem} />
@@ -135,101 +159,96 @@ export default function Hoje(){
 }
 
 const StyleHoje = styled.div`
-    
-    margin: 0 auto;
-    max-width: 375px;
-    width: 100%;
-    min-height: 84vh;
-    height: 100%;
-    padding: 0 17px;
-    overflow: scroll;
-    
+  margin: 0 auto;
+  max-width: 375px;
+  width: 100%;
+  min-height: 84vh;
+  height: 100%;
+  padding: 0 17px;
+  overflow: scroll;
 
-    h1{
-        font-family: 'Lexend Deca';
-        font-style: normal;
-        font-weight: 400;
-        font-size: 22.976px;
-        line-height: 29px;
-        color: #126BA5;
-        margin-bottom: 3px;
-        margin-top: 28px;
-        
-    }
+  h1 {
+    font-family: "Lexend Deca";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 22.976px;
+    line-height: 29px;
+    color: #126ba5;
+    margin-bottom: 3px;
+    margin-top: 28px;
+  }
 
-    p {
-        font-family: 'Lexend Deca';
-        font-style: normal;
-        font-weight: 400;
-        font-size: 17.976px;
-        line-height: 22px;
-        color: #8FC549;
-        margin-bottom: 28px;
-    }
+  p {
+    font-family: "Lexend Deca";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 17.976px;
+    line-height: 22px;
+    color: #8fc549;
+    margin-bottom: 28px;
+  }
 
-    .habitoshoje {
-        width: 340px;
-        min-height: 94px;
-        background: #FFFFFF;
-        border-radius: 5px;
-        margin-bottom: 10px;
-        display: flex;
-        justify-content: space-between;
-        
-    }
+  .habitoshoje {
+    width: 340px;
+    min-height: 94px;
+    background: #ffffff;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+  }
 
-    .habitoshoje .textos {
-        max-width: 230px;
-    }
+  .habitoshoje .textos {
+    max-width: 230px;
+  }
 
-    .habitoshoje h2 {
-            font-family: 'Lexend Deca';
-            font-style: normal;
-            font-weight: 400;
-            font-size: 19.976px;
-            line-height: 25px;
-            color: #666666;
-            margin-top: 13px;
-            margin-bottom: 7px;
-            margin-left: 10px
-    }
+  .habitoshoje h2 {
+    font-family: "Lexend Deca";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 19.976px;
+    line-height: 25px;
+    color: #666666;
+    margin-top: 13px;
+    margin-bottom: 7px;
+    margin-left: 10px;
+  }
 
-    .habitoshoje p {
-        font-family: 'Lexend Deca';
-        font-style: normal;
-        font-weight: 400;
-        font-size: 12.976px;
-        line-height: 16px;
-        color: #666666;
-        margin-bottom: 3px;
-        margin-left: 10px;
-    }
+  .habitoshoje p {
+    font-family: "Lexend Deca";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12.976px;
+    line-height: 16px;
+    color: #666666;
+    margin-bottom: 3px;
+    margin-left: 10px;
+  }
 
-    .habitoshoje p:first-of-type span {
-        color: #8FC549;
-    }
+  .habitoshoje p strong {
+    color: #8fc549;
+  }
 
-    .habitoshoje p:last-of-type span {
-        color: ${(props)=>props.ficaverde ? "#8FC549" : "#666666"}; 
-    }
+  .habitoshoje p {
+    color: #666666;
+  }
 
-    label {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-right: 13px;
-        background-color: "red";
-    }
+  
 
-    label img {
-        width: 69px;
-        height: 69px;
-        cursor: pointer;
-    }
+  label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 13px;
+    background-color: "red";
+  }
 
-   
-
-`
+  label img {
+    width: 69px;
+    height: 69px;
+    cursor: pointer;
+  }
+`;
 
 
 // (nrespondidas/ntotal)*100 -> calculo para fazer a barra de progresso 
